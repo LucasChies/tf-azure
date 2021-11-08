@@ -27,5 +27,5 @@ resource "azurerm_resource_group" "rg" {
 
 #Create aks
 module "aks" {
-  source                 = "./modules/aks"
+  source                 = "./aks-module"
 }
