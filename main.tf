@@ -17,9 +17,15 @@ resource "azurerm_resource_group" "rg" {
     name     = "tf-aks-rg"
     location = "eastus2"
 
+    tags = {
+    environment = "Dev"
+    project   = "Terraform"
+    owner     = "Lucas.Chies"
+    }
+
 }
 
 #Create aks
 module "aks" {
-  source                 = "git@github.com:LucasChies/tf-azure.git"
+  source                 = "./modules/aks"
 }

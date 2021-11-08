@@ -1,0 +1,7 @@
+## after build 
+
+export KUBECONFIG=./kubeconfig
+kubectl get all --all-namespaces
+
+##
+kubectl get service --namespace nginx-ingress

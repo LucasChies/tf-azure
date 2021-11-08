@@ -5,7 +5,6 @@ provider "helm" {
     client_key             = base64decode(azurerm_kubernetes_cluster.aks.kube_config[0].client_key)
     client_certificate     = base64decode(azurerm_kubernetes_cluster.aks.kube_config[0].client_certificate)
     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.aks.kube_config[0].cluster_ca_certificate)
-    #load_config_file       = false
   }
 }
 #
@@ -42,7 +41,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
         name            = "akspool"
         node_count      = "${var.agent_count}"
         vm_size         = "Standard_DS2_v2"
-        #os_type         = "Linux"
         os_disk_size_gb = 30
         enable_auto_scaling = false
         vnet_subnet_id = "${azurerm_subnet.subnet.id}"
@@ -52,7 +50,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     addon_profile {
 
         kube_dashboard {
-            enabled = false
+            enabled = true
         }
     
     }
@@ -73,11 +71,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
     tags = merge({
         Environment = "Development"
     })
-
-    #provisioner "local-exec" {
-    #    command = "./helm-install.sh"
-    #}
-
 }
 
 resource "helm_release" "ingress_nginx" {
